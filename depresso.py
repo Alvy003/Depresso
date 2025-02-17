@@ -114,5 +114,4 @@ def exp():
     return render_template('exp.html')  # Make sure you create this exp.html page
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
