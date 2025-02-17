@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        /* Body and Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1c1c1c, #212121);
+            color: #e0e0e0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container Styling */
+        .container {
+            background: rgba(28, 28, 28, 0.85);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            width: 80%;
+            max-width: 700px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Header */
+        h1 {
+            font-size: 2.5em;
+            color: #28bf96;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeInHeader 1.2s forwards;
+        }
+
+        h2.result {
+            font-size: 2em;
+            color: #9ff9f3f5;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: resultFadeIn 1.5s forwards;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            color: #9ff9f3d7;
+            margin-top: 25px;
+            opacity: 0;
+            animation: fadeInTips 1.2s forwards;
+        }
+
+        /* Styling for depression tips */
+        .tips-container {
+            text-align: left;
+            margin-top: 20px;
+            padding-left: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeInTips 1.5s forwards;
+        }
+
+        .tips-container ul {
+            list-style-type: disc;
+        }
+
+        /* Link Styling */
+        a {
+            text-decoration: none;
+            font-weight:bold;
+            padding: 12px 25px;
+            margin-top: 30px;
+            display: inline-block;
+            border-radius: 50px;
+            background-color: #28bf97e3;
+            color: #ffffffda;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        a:hover {
+            background-color: #28bf97d2;;
+            color: #ffffff;
+            border-color: transparent;
+        }
+
+        /* Special Styling for 'Seek Professional Help' Button */
+        .seek-help-btn {
+            text-decoration: none;
+            font-weight: 900px;
+            padding: 12px 35px;
+            margin-top: 25px;
+            display: inline-block;
+            border-radius: 50px;
+            background-color: #d94141;
+            color: #ffffffda;
+            border-color: transparent;
+            transition: all 0.3s ease;
+            font-size: 1.2em;
+            margin-right: 10px;
+            
+        }
+
+        .seek-help-btn:hover {
+            background-color: #dd1919dc; /* Darker Red on Hover */
+            color: #ffffff;
+        }
+
+        /* Acknowledgment Styling */
+        .acknowledgment {
+            font-size: 1.2em;
+            color: #a8a8a8;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        /* Keyframe for Header Animation */
+        @keyframes fadeInHeader {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyframe for Result Animation */
+        @keyframes resultFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyframe for Tips Animation */
+        @keyframes fadeInTips {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Small Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2.result {
+                font-size: 1.6em;
+            }
+
+            a {
+                font-size: 1em;
+            }
+
+            .seek-help-btn {
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Prediction Result</h1>&ensp;
+
+        <h2 class="result">{{ result }}</h2>
+        {% if age_group %}
+            <h3>{{ age_group }}</h3> <!-- This will show the age group message on the next line -->
+        {% endif %}
+        {% if depression_tips %}
+            
+            <div class="tips-container">
+                
+            </div>
+            <h3 class="acknowledgment">You're not alone in this. Take it slow, and be gentle with yourself.</h3>
+            <a href="/exp" class="seek-help-btn">Seek Professional Help</a>
+            <a href="/home">Go Back</a>
+        {% else %}
+            <h3 class="acknowledgment">Keep up the good work! You're doing great. Continue taking care of yourself.</h3>
+            <a href="/home">Go Back</a>
+        {% endif %}
+        
+    </div>
+
+</body>
+</html>

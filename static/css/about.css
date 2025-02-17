@@ -1,0 +1,608 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Spicy+Rice&display=swap');
+/*<div id="imm"><button class="bttn" id="buttt">Register Now</button> </div>*/
+
+/* google fonts-spicy rice astigmatic
+/* General Reset  background-color: var(--yt);
+  color: var(--pc);*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transform: scale(1.); /* Reduces zoom to 80% */
+  transform-origin: 0 0;  /* Sets the scaling origin point */
+  
+}
+
+/* Remove default link styles */
+a {
+    color: inherit;            /* Inherit the color from the parent */
+    text-decoration: none;     /* Remove underline */
+    }
+    
+    /* Optional: Remove colors on all states */
+    a:link, a:visited, a:hover, a:active {
+    color: inherit;            /* Remove link color */
+    text-decoration: none;     /* Remove underline */
+    }
+
+/* Dark Mode Styles */
+:root {
+    --sc: rgb(0, 0, 0);   /* Primary color */  
+    --pc: black;
+    --bg: rgb(255, 255, 255);
+    --yt: rgba(231, 216, 216, 0.486);
+    --pt: #02b396;
+    --nv: rgb(0, 0, 0);
+    --sh: rgb(156, 144, 144);
+    --hd: rgb(123, 160, 48);
+    --mc: linear-gradient(to right, #99c1dd, hsl(226, 100%, 89%));
+    --ib: rgba(8, 38, 42, 0.744); 
+    --dm: rgb(255, 255, 255); 
+ 
+
+}
+
+/* Light mode */
+.darkmode {
+    --sc:  repeating-linear-gradient(to right, transparent 0 100px,#25283b22 100px 101px),repeating-linear-gradient(to bottom, transparent 0 100px,#25283b22 100px 101px);  /* Primary color */
+    --pc: rgb(255, 255, 255);  /* Secondary color */
+    --bg: rgb(0, 0, 0);  /* Background color */
+    --yt: rgba(66, 76, 84, 0.92);
+    --pt: #00957c;
+    --nv: rgb(255, 255, 255);
+    --sh: rgb(116, 117, 125);
+    --hd: #150e65;
+    --bk: linear-gradient(10deg,#151f28,#130b11,#161313 ,#1a0c1b, #000000, #08090a,#1b0b0b,#000000,rgb(0, 0, 0));
+    --primary-color: #28bf96;
+    --primary-color-dark: #209677;
+    --text-dark: #111827;
+    --text-light: #6b7280;
+    --white: #ffffff;
+    --ib: #9ec4a0c1;
+    --dm: black;
+  }
+
+
+  #theme-switch{
+    height: 45px;
+    width: 45px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: var(--ib);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 15px;
+    right: 95px;
+    border: none;
+    
+  }
+  #theme-switch svg{
+    fill: var(--dm);
+  }
+  #theme-switch svg:last-child{
+    display: none;
+  }
+  .darkmode #theme-switch svg:first-child{
+    display: none;
+  }
+  .darkmode #theme-switch svg:last-child{
+    display: block;
+  }
+
+  @media (width > 900px) {
+    .nave{
+      display:none;
+
+    }
+  }
+ 
+  @media (width < 900px) {
+    .nav__links {
+      display: none;
+    
+      
+      
+    }
+    .nav-item{
+      display: none;
+    
+
+    }
+    .headi{
+      font-size: 25px!important;
+    }
+    .subtxt{
+      font-size:  4px!important;
+      margin-left: -39px!important;
+    }
+    html, body {
+      height: 100%;
+      width: 100%; /* Disable both horizontal and vertical scroll on small screens */
+      overflow-x: hidden!important;  /* Allow horizontal scrolling */
+      overflow-y: auto!important;/* Disable both horizontal and vertical scroll on small screens */
+      
+    }
+    
+      body {
+        background-image: url('/static/images/5f357be1-9ee9-44c6-a861-ee64f338f03d.webp')!important;
+        background-size: cover;
+        background-repeat: no-repeat;
+        
+        
+      }
+      #theme-switch{
+        display: none;
+      }
+      p{
+      font-size: 13px!important;
+      text-align: justify;
+      word-spacing: -1px;
+      }
+      .message{
+        font-size: 13px!important;
+        margin-top: 20px !important;
+        
+      }
+      .about-section{
+        background-color: transparent!important;
+        margin-top: 0!important;
+        
+
+      
+      }
+      .about-content{
+        margin-right: -50px!important;
+        margin-left: -350px;
+        
+      }
+      .about-image{
+        display: none;
+      }
+      .hamburger {
+        cursor: none !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 2px;
+        height: 25px!important;
+        
+        
+    }
+    .bar {   
+      width: 35px!important;
+      height: 3px!important;
+    }
+    
+  
+    #st{
+          margin-left: -350px;
+          font-size: 50px !important;
+          margin-top: -50px;
+          
+    }
+  
+    #nd{
+          margin-left: -350px;
+          font-size: 45px !important;
+          
+          z-index: 10!important;
+          margin-top: 10px;
+    }
+    .menu {
+      position: absolute;
+      top: 50px;
+      left: -200px;
+      background-color: #00957ced;
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 220px!important;
+      height: 320px!important;
+      cursor: none;
+      text-align: center;
+      transition: left 0.3s ease;
+      z-index: 10;
+  }
+  .menu{
+    margin-left: 35px;
+    cursor: none;
+  }
+  .nav-ite{
+      display: flex;/* Display list items inline */
+      margin-right: 0px; /* Remove margin between items */
+      padding: 0 0px; /* Adjust padding if necessary */
+      font-size: 15px;
+      height: 0px;
+      margin-left: -79px;
+      cursor:none;
+      
+      
+  } 
+  ul {
+    list-style-type: none;  /* Removes the default bullet points */
+    padding: 0;             /* Optional: Removes padding for better control */
+    margin: 0;              /* Optional: Removes margin */
+}
+.coming-soon{
+  font-size: 20px!important;
+  font-weight: bold!important;
+  color: #92e3cb;
+  margin-top:170px!important;
+  margin-bottom: 10px!important;
+  animation: fadeIn 2s ease-in-out infinite;
+}
+   
+    .navul{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      width: 60px;
+      height: 137px;
+      padding: 0;
+      margin: 0;
+      position: absolute;
+      top: 30px;
+      right: 1px;
+      margin-bottom: 10px!important;
+      
+      
+      
+    }
+    li{
+      padding-top: 0px!important;
+      padding-bottom: 36px!important;
+    }
+
+   
+  }
+
+
+/* Heading */
+.headi{
+  font-size: 45px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding-left: 10px;
+  padding-top: 10px;
+  margin-right: 50px;
+  color:var(--bg);
+  
+}
+
+.subtxt{
+  font-size: 8px;
+  padding-top: 0px;
+  word-spacing: 1px;
+  letter-spacing: 2px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding-left: 80px;
+  font-weight: 900;
+  color: var(--sh);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom:5px;
+  align-content: center;
+  position: relative;
+  padding-bottom: 1px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  width: 1px; 
+  height: 12px; 
+  top: 2px; 
+  right: 20px;
+  margin-top: 0px;
+  margin-left: 620px; 
+  margin-right: 0px;
+  
+  
+}
+
+.tabs button {
+  border: none;
+  cursor: pointer;
+  padding: 30px;
+  background-color:transparent;
+  color:var(--bg);
+  font-size: medium;
+  position: relative;
+}
+
+.tabs button:hover {
+  color:  rgb(141, 132, 132);
+}
+
+/* Menu Icon Container */
+.menu-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+   
+  width: 60px; /* Adjusted width of the menu icon */
+  height: 27px; /* Adjusted height of the menu icon */
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 20px; /* Position it from the top */
+  right: 20px; /* Position it to the right */
+}
+
+
+.hamburger {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 27px;
+    height: 45px;
+    z-index: 2;
+}
+
+
+.bar {
+  background-color: var(--bg);
+  height: 4px;
+  width: 40px;
+  transition: all 0.3s ease;
+}
+.menu {
+  position: absolute;
+  top: 50px;
+  left: -200px;
+  background-color: #00957ced;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 220px;
+  height: 150px;
+  display: none;
+  text-align: center;
+  transition: left 0.3s ease;
+  z-index: 10;
+}
+
+.menu.open {
+  display: block;
+  right: 50px;
+}
+
+.menu-content {
+  padding: 20px;
+}
+
+.coming-soon {
+  font-size: 20px;
+  font-weight: bold;
+  color: #92e3cb;
+  margin-bottom: 12px;
+  margin-top: -15px;
+  animation: fadeIn 2s ease-in-out infinite;
+}
+
+.message {
+  font-size: 16px;
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
+
+
+.hamburger.open .bar:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open .bar:nth-child(3) {
+  transform: translateY(2px) rotate(-45deg);
+}
+
+
+
+
+
+
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background:  var(--sc);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    background-size: cover;
+  
+  }
+
+
+
+/* About */
+
+header {
+    color: #23e57a;
+    padding: 20px ;
+    
+  }
+  
+ 
+  .about-section {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1350px;
+    margin: 50px 315px ;
+    padding: 12px;
+    background-color: var(--ib);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }/*
+  #cbaf9bb0;*/
+  .about-content {
+    flex: 1 1 60%;
+    text-decoration-thickness: 2px;
+    padding: 20px;  
+    color: var(--bg)
+  }
+  
+  .about-content h2 {
+    color: var(--pt);
+    margin-bottom: 7px;
+    
+    
+  }
+  
+  
+  .about-image {
+    flex: 1 1 35%;
+    display:absolute; ;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    height: 550px;
+    margin-top: 4px;
+    margin-left: 1px;
+    margin-bottom: -2px;
+  }
+  
+  h2{
+    font-size: 30px;
+  }
+  
+  p{
+    line-height: 1.5;
+    letter-spacing: .2px;
+    margin-bottom: 15px;
+  }
+    
+
+
+  .navbar {
+    background-color: transparent; /* White background for navbar */
+    display: flex;
+    justify-content: center; /* Center-align the navigation items */
+    position: sticky;
+    top: 0; /* Makes it stick at the top on scroll */
+    z-index: 1;
+    margin-left: 150px;  
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+  
+
+  
+  .nav-item:hover,
+  .nav-item.active {
+    color:var(--pc) /* Change color on hover or active state */
+  }
+  
+  /* Underline Effect */
+  .nav-item::after {
+    content: ""; /* Create an empty element */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* Initially, the underline is hidden */
+    height: 2.3px; /* Thickness of the underline */
+    background-color: #59ca21; /* Underline color */
+    transition: width 0.3s ease; /* Smooth underline transition */
+  }
+  
+  .nav-item:hover::after,
+  .nav-item.active::after {
+    width: 100%; /* Extend underline on hover or active */
+    color: rgb(255, 255, 255);
+  }
+
+  li{
+    text-decoration: none;
+    color: var(--pc); /* Change default text color to white */
+    font-size: 17px;
+    padding: 10px 20px;
+    position: relative; /* To position the underline effect */
+    transition: color 0.3s ease; /* Smooth color transition */
+    margin-right: 50px;
+    font-weight: bold;
+  }
+
+  .navbar {
+    background-color: transparent; /* White background for navbar */
+    display: flex;
+    justify-content: center; /* Center-align the navigation items */
+    position: sticky;
+    top: 0; /* Makes it stick at the top on scroll */
+    z-index: 1;
+    margin-top: 20px;
+  }
+  .nav-links {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    
+  }
+  
+  
+  
+  .nav-item:hover,
+  .nav-item.active {
+    color:var(--bg) /* Change color on hover or active state */
+  }
+  
+  /* Underline Effect */
+  .nav-item::after {
+    content: ""; /* Create an empty element */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* Initially, the underline is hidden */
+    height: 3.3px; /* Thickness of the underline */
+    background-color: #28bf96; /* Underline color */
+    transition: width 0.3s ease; /* Smooth underline transition */
+  }
+  
+  .nav-item:hover::after,
+  .nav-item.active::after {
+    width: 100%; /* Extend underline on hover or active */
+    color: rgb(255, 255, 255);
+  }
+  
+  li{
+    text-decoration: none;
+    color: var(--bg); /* Change default text color to white */
+    font-size: 17px;
+    padding: 10px 20px;
+    position: relative; /* To position the underline effect */
+    transition: color 0.3s ease; /* Smooth color transition */
+    margin-right: 50px;
+    font-weight: bold;
+  }
+  
+  

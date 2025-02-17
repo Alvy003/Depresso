@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #333, #111);
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .register-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            width: 320px;
+            animation: fadeIn 0.8s ease-out;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .register-container:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #00ff00;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 12px 0;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            background-color: #222;
+            color: #fff;
+            font-size: 1.1em;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:focus {
+            border-color: #00ff00;
+            background-color: #333;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00ff00ca;
+            color: #222;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            margin-top: 1px;
+        }
+
+        button:hover {
+            background-color: #00cc00;
+            box-shadow: 0 8px 12px rgba(0, 255, 0, 0.4);
+        }
+
+        .error {
+            color: red;
+            margin-top: 15px;
+            font-size: 1em;
+        }
+
+        .login-link {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: lightgray;
+        }
+
+        .login-link a {
+            color: lightgray;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Register</h1>
+        <form id="registerForm">
+            <input type="text" id="newUsername" placeholder="Username" required><br>
+            <input type="password" id="newPassword" placeholder="Password" required><br>
+            <button type="submit">Register</button>
+        </form>
+        <p id="registerErrorMessage" class="error"></p>
+        <p class="login-link">Already have an account? <a href="/">Login here</a></p>
+    </div>
+
+    <script>
+        // Handle registration
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('newUsername').value;
+            const password = document.getElementById('newPassword').value;
+            const errorMessage = document.getElementById('registerErrorMessage');
+
+            // Check if the username already exists
+            if (localStorage.getItem(username)) {
+                errorMessage.textContent = 'Username already exists.';
+                return;
+            }
+
+            // Store the new user's data in localStorage
+            localStorage.setItem(username, password);
+
+            // Redirect to the login page
+            alert('Registration successful! You can now log in.');
+            window.location.href = '/';
+        });
+    </script>
+</body>
+</html>

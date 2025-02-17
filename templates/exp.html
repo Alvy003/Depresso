@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Understanding Depression</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #000; /* Black Background */
+            color: #fff; /* White Text */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        h1, h2 {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: left;
+            padding: 40px 50px;
+            background: linear-gradient(135deg, #1c1c1c, #333); /* Dark Gradient */
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3.2em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .atxt {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+        }
+
+        .atxt a {
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .atxt a:hover {
+            color: #bbb;
+        }
+
+        /* Section Styles */
+        section {
+            margin: 40px auto;
+            max-width: 850px;
+            padding: 40px 50px;
+            background: #1c1c1c; /* Dark Background for Sections */
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+            margin-bottom: 40px;
+        }
+
+        section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        section p, section ul {
+            font-size: 1.2em;
+            color: #bbb; /* Light Gray Text */
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 12px;
+        }
+
+        /* Button Styles */
+        button {
+            background-color: #333; /* Dark Button */
+            color: white;
+            font-size: 1.2em;
+            padding: 18px 35px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover {
+            background-color: #444; /* Lighter Gray on Hover */
+            transform: translateY(-4px);
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #111;
+            font-size: 1.2em;
+            color: #bbb;
+        }
+
+        /* Hover Effects */
+        section li:hover {
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            section {
+                padding: 25px;
+            }
+
+            button {
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Finding Your Way Through Depression</h1>
+        <div class="atxt">
+            <a href="/home">
+                <i class="bi bi-house"></i>
+            </a>
+        </div>
+    </header>
+    
+    <section class="intro">
+        <h2>What is Depression?</h2>
+        <p>Depression is a mental health condition that causes persistent sadness and a lack of interest in daily activities. It's not just "feeling down" – it's a serious condition that affects your emotional and physical health. But, the good news is, depression is treatable, and help is available.</p>
+    </section>
+
+    <section class="symptoms">
+        <h2>Recognizing the Signs</h2>
+        <ul>
+            <li>Feelings of sadness or emptiness that won't go away</li>
+            <li>Loss of interest in activities you once enjoyed</li>
+            <li>Changes in appetite or sleep patterns</li>
+            <li>Difficulty concentrating or making decisions</li>
+            <li>Thoughts of self-harm or suicide (Seek help immediately!)</li>
+        </ul>
+    </section>
+
+    <section class="treatments">
+        <h2>Treatment Options</h2>
+        <ul>
+            <li><strong>Therapy:</strong> Speaking with a counselor or therapist can help you process your emotions and teach coping strategies.</li>
+            <li><strong>Medication:</strong> Antidepressant medications can help regulate brain chemicals that affect mood.</li>
+            <li><strong>Lifestyle Changes:</strong> Regular exercise, healthy eating, and getting enough rest can all support your mental health.</li>
+        </ul>
+    </section>
+
+    <section class="resources">
+        <h2>Where to Get Help</h2>
+        <ul>
+            <li>National Suicide Prevention Lifeline: <a href="https://www.nimh.nih.gov/health/topics/suicide-prevention" style="color:white">nimh.nih.gov</a></li>
+            <li>Local Mental Health Support: <a href="https://www.who.int/health-topics/mental-health#tab=tab_1" style="color: #fff;">MentalHealth.gov</a></li>
+        </ul>
+    </section>
+
+    <section class="cta">
+        <h2>Take Action Today</h2>
+        <p>It's important to take the first step toward recovery. Don't hesitate to reach out for help—whether it's a friend, a family member, or a mental health professional. You are not alone.</p>
+        <button><a href="https://www.mentalhealth.gov">Get Help Now</a></button>
+    </section>
+
+    
+</body>
+</html>

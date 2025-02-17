@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balloon Shooting Game</title>
+    <style>
+        body {
+            background-color: #87CEEB; /* Light blue sky background */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: white;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            background-color: #FF6347; /* Tomato red color for balloons */
+            border-radius: 50%;
+            width: 60px;
+            height: 80px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #score {
+            font-size: 1.5em;
+            color: white;
+            margin-top: 20px;
+        }
+
+        #timer {
+            font-size: 1.5em;
+            color: white;
+        }
+
+        #gameOver {
+            font-size: 2em;
+            color: white;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Balloon Shooting Game</h1>
+    <div id="score">Score: 0</div>
+    <div id="timer">Time: 30</div>
+    <div id="gameOver">Game Over! Your score: <span id="finalScore"></span></div>
+
+    <script>
+        let score = 0;
+        let timeRemaining = 30;
+        let gameInterval;
+        let balloonInterval;
+
+        // Function to create and shoot a balloon
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.style.left = Math.random() * 100 + '%'; // Random position
+            balloon.style.animation = `balloonAnimation 5s linear forwards`;
+
+            // When balloon is clicked, increase score and remove it
+            balloon.onclick = function () {
+                score++;
+                document.getElementById('score').innerText = `Score: ${score}`;
+                balloon.remove(); // Remove the balloon when clicked
+            };
+
+            document.body.appendChild(balloon);
+        }
+
+        // Function to update the timer
+        function updateTimer() {
+            timeRemaining--;
+            document.getElementById('timer').innerText = `Time: ${timeRemaining}`;
+
+            if (timeRemaining <= 0) {
+                clearInterval(gameInterval);
+                clearInterval(balloonInterval);
+                document.getElementById('gameOver').style.display = 'block';
+                document.getElementById('finalScore').innerText = score;
+            }
+        }
+
+        // Function to start the game
+        function startGame() {
+            score = 0;
+            timeRemaining = 30;
+            document.getElementById('score').innerText = `Score: ${score}`;
+            document.getElementById('timer').innerText = `Time: ${timeRemaining}`;
+            document.getElementById('gameOver').style.display = 'none';
+
+            gameInterval = setInterval(updateTimer, 1000); // Update timer every second
+            balloonInterval = setInterval(createBalloon, 1500); // Create a balloon every 1.5 seconds
+        }
+
+        // Start the game when the page loads
+        startGame();
+
+        // Keyframe animation for balloon movement
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes balloonAnimation {
+                0% {
+                    bottom: -100px;
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.2);
+                }
+                100% {
+                    bottom: 100%;
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

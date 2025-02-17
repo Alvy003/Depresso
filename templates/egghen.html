@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hen Egg Collection Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
+            cursor: none; /* Hide the cursor during gameplay */
+            background: linear-gradient(135deg, #a2c2e1, #b9e0a6); /* Relaxing gradient */
+            background-size: cover;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #b0ef10;
+            text-shadow: 2px 2px 4px rgba(209, 219, 24, 0.5);
+            background-color: rgba(110, 101, 101, 0.203);
+            margin-top: 20px;
+        }
+
+        #score, #timer {
+            font-size: 1.5em;
+            color: #600303;
+            font-weight: bold;
+        }
+
+        #score {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+        }
+
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+
+        .basket {
+            width: 80px;
+            height: 50px;
+            position: absolute;
+            bottom: 10px;
+            background-color: #8B4513;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.1s ease-in-out;
+        }
+
+        .egg {
+            width: 40px;
+            height: 60px;
+            border-radius: 50%;
+            position: absolute;
+            top: -60px; /* Start off-screen */
+            transition: top 0.1s linear;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .egg.normal {
+            background-color: #FFD700; /* Gold eggs */
+        }
+
+        .egg.shit {
+            background-color: #A52A2A; /* Brown for shit egg */
+        }
+
+        #gameOver {
+            font-size: 2em;
+            color: white;
+            display: none;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-top: 50px;
+        }
+
+        .eggContainer {
+            position: relative;
+            height: 90vh;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pirate's Eye</h1>
+    <div id="score">Score: 0</div>
+    <div id="timer">Time: 30</div>
+    <div id="gameOver">Game Over! Final Score: <span id="finalScore"></span></div>
+
+    <div class="eggContainer">
+        <div class="basket" id="basket"></div>
+    </div>
+
+    <script>
+        let score = 0;
+        let timeRemaining = 30;
+        let gameInterval;
+        let eggInterval;
+        let basket = document.getElementById('basket');
+        let scoreDisplay = document.getElementById('score');
+        let timerDisplay = document.getElementById('timer');
+        let gameOverDisplay = document.getElementById('gameOver');
+        let finalScoreDisplay = document.getElementById('finalScore');
+        let basketPosition = window.innerWidth / 2 - 40;
+        let basketWidth = 80;
+
+        // Sound effects
+        let goodEggSound = new Audio('https://pixabay.com/sound-effects/chicken-noises-223056/');  // Good egg sound
+        let badEggSound = new Audio('https://www.soundjay.com/button/beep-08b.wav');   // Bad egg sound
+        let missedEggSound = new Audio('https://www.soundjay.com/buttons/sounds/beep-10.mp3'); // Missed egg sound
+        let chickenSound = new Audio('static/Sounds/chicken-noise-196746.mp3'); // Chicken noise sound
+
+        // Preload the chicken sound
+        chickenSound.preload = 'auto';
+
+        // Function to update the timer
+        function updateTimer() {
+            timeRemaining--;
+            timerDisplay.textContent = `Time: ${timeRemaining}`;
+
+            if (timeRemaining <= 0) {
+                clearInterval(gameInterval);
+                clearInterval(eggInterval);
+                gameOverDisplay.style.display = 'block';
+                finalScoreDisplay.textContent = score;
+            }
+        }
+
+        // Function to create a random egg (normal or shit egg)
+        function createEgg() {
+            let egg = document.createElement('div');
+            egg.classList.add('egg');
+            egg.classList.add(Math.random() > 0.2 ? 'normal' : 'shit'); // 80% normal, 20% shit
+
+            let eggPositionX = Math.random() * (window.innerWidth - 40); // Random horizontal position
+            egg.style.left = eggPositionX + 'px';
+            document.body.appendChild(egg);
+
+            let eggTop = -60; // Start off-screen
+            let eggSpeed = Math.random() * 2 + 3; // Random fall speed between 3 and 5
+
+            // Play chicken sound when an egg starts falling (simulate the chicken laying the egg)
+            chickenSound.play();
+
+            // Function to animate the egg falling
+            let fallInterval = setInterval(function() {
+                eggTop += eggSpeed; // Move the egg downwards by a variable speed
+                egg.style.top = eggTop + 'px';
+
+                // If egg reaches the basket position
+                if (eggTop >= window.innerHeight - 70) { // Basket position
+                    if (eggPositionX >= basketPosition && eggPositionX <= basketPosition + basketWidth) {
+                        // Egg caught in the basket
+                        if (egg.classList.contains('normal')) {
+                            score++;
+                            goodEggSound.play();
+                        } else {
+                            score--;
+                            badEggSound.play();
+                        }
+                        scoreDisplay.textContent = `Score: ${score}`;
+                    } else {
+                        missedEggSound.play(); // Play sound if egg missed
+                    }
+
+                    // Remove egg after it falls
+                    clearInterval(fallInterval);
+                    egg.remove();
+                }
+            }, 20); // Speed of the fall
+        }
+
+        // Function to move the basket with mouse
+        function moveBasket(event) {
+            basketPosition = event.clientX - basketWidth / 2; // Center basket on mouse
+            if (basketPosition < 0) {
+                basketPosition = 0;
+            }
+            if (basketPosition > window.innerWidth - basketWidth) {
+                basketPosition = window.innerWidth - basketWidth;
+            }
+            basket.style.left = basketPosition + 'px';
+        }
+
+        // Function to move the basket with keyboard arrows
+        function handleKeyboard(event) {
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+                let moveAmount = (event.key === 'ArrowLeft') ? -20 : 20;
+                basketPosition += moveAmount;
+                
+                if (basketPosition < 0) basketPosition = 0;
+                if (basketPosition > window.innerWidth - basketWidth) basketPosition = window.innerWidth - basketWidth;
+
+                basket.style.left = basketPosition + 'px';
+            }
+        }
+
+        // Function to move the basket with touch
+        function handleTouchMove(event) {
+            const touch = event.touches[0];
+            basketPosition = touch.clientX - basketWidth / 2;
+
+            if (basketPosition < 0) basketPosition = 0;
+            if (basketPosition > window.innerWidth - basketWidth) basketPosition = window.innerWidth - basketWidth;
+
+            basket.style.left = basketPosition + 'px';
+        }
+
+        // Start the game
+        function startGame() {
+            score = 0;
+            timeRemaining = 30;
+            scoreDisplay.textContent = `Score: ${score}`;
+            timerDisplay.textContent = `Time: ${timeRemaining}`;
+            gameOverDisplay.style.display = 'none';
+
+            gameInterval = setInterval(updateTimer, 1000); // Update timer every second
+            eggInterval = setInterval(createEgg, 1500); // Create a new egg every 1.5 seconds
+        }
+
+        // Listen for mouse movement to move the basket
+        window.addEventListener('mousemove', moveBasket);
+
+        // Listen for keyboard arrow events
+        window.addEventListener('keydown', handleKeyboard);
+
+        // Listen for touch move events
+        window.addEventListener('touchmove', handleTouchMove);
+
+        // Start the game when the page loads
+        startGame();
+    </script>
+</body>
+</html>

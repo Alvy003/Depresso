@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match Game</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            text-align: center;
+            padding: 0px;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #f3f4f6;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #f3f4f6;
+        }
+
+        /* Board Layout */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(4, 120px);
+            grid-template-rows: repeat(4, 120px);
+            gap: 15px;
+            justify-content: center;
+            margin: 30px auto;
+            max-width: 500px;
+        }
+
+        .card {
+            width: 120px;
+            height: 120px;
+            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #000;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .flipped {
+            background-color: lightgreen;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Scoreboard and Feedback */
+        #scoreboard {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #f3f4f6;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        #rewards {
+            margin-top: 10px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        /* Buttons and Interactive Elements */
+        button {
+            background-color: #2575fc;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #6a11cb;
+        }
+
+        /* Responsive Design */
+        /* For smaller screens, reduce card size and adjust grid */
+        @media (max-width: 768px) {
+            .board {
+                grid-template-columns: repeat(4, 90px); /* Still 4 columns, but smaller tiles */
+                grid-template-rows: repeat(4, 90px);
+                max-width: 400px;
+            }
+
+            .card {
+                width: 90px;
+                height: 90px;
+                font-size: 16px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            #scoreboard,
+            #feedback,
+            #rewards {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .board {
+                grid-template-columns: repeat(3, 80px); /* 3 columns for smaller screens */
+                grid-template-rows: repeat(4, 80px);
+                max-width: 320px;
+            }
+
+            .card {
+                width: 80px;
+                height: 80px;
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            #scoreboard,
+            #feedback,
+            #rewards {
+                font-size: 0.9em;
+            }
+
+            button {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+        }
+
+        /* For very small screens (e.g., smartphones) */
+        @media (max-width: 360px) {
+            .board {
+                grid-template-columns: repeat(2, 70px); /* 2 columns for very small screens */
+                grid-template-rows: repeat(4, 70px);
+                max-width: 270px;
+            }
+
+            .card {
+                width: 70px;
+                height: 70px;
+                font-size: 12px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            #scoreboard,
+            #feedback,
+            #rewards {
+                font-size: 0.8em;
+            }
+
+            button {
+                font-size: 0.9em;
+                padding: 8px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Memory Match Game</h1>
+    <p>Match the pairs!</p>
+    <div class="board" id="board"></div>
+
+    <div id="scoreboard">
+        <p>Moves: <span id="moveCount">0</span></p>
+        <p>Matched Pairs: <span id="matchedCount">0</span></p>
+    </div>
+    
+    <div id="feedback"></div>
+    <div id="rewards"></div>
+
+    <script>
+        const cards = ['You are strong', 'You matter', 'Keep going', 'You are loved', 'Stay positive', 'You are enough', 'Believe in yourself', 'You are resilient'];
+        let shuffledCards = [...cards, ...cards].sort(() => Math.random() - 0.5); // Duplicate and shuffle cards
+        let flippedCards = [];
+        let matchedCards = 0;
+        let moveCount = 0;
+        const totalPairs = cards.length;
+        
+        function createBoard() {
+            const board = document.getElementById('board');
+            shuffledCards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('card');
+                cardElement.setAttribute('data-id', index);
+                cardElement.onclick = () => flipCard(cardElement, card);
+                board.appendChild(cardElement);
+            });
+        }
+
+        function flipCard(cardElement, cardValue) {
+            if (flippedCards.length < 2 && !cardElement.classList.contains('flipped')) {
+                cardElement.textContent = cardValue;
+                cardElement.classList.add('flipped');
+                flippedCards.push({ element: cardElement, value: cardValue });
+                moveCount++;
+                updateScoreboard();
+
+                if (flippedCards.length === 2) {
+                    checkMatch();
+                }
+            }
+        }
+
+        function checkMatch() {
+            if (flippedCards[0].value === flippedCards[1].value) {
+                matchedCards++;
+                updateFeedback(`You matched a pair! Well done!`);
+                flippedCards = [];
+                if (matchedCards === totalPairs) {
+                    setTimeout(() => endGame(true), 500);  // Delay to show message before ending game
+                }
+            } else {
+                updateFeedback('Not a match, try again!');
+                setTimeout(() => {
+                    flippedCards.forEach(card => card.element.textContent = '');
+                    flippedCards.forEach(card => card.element.classList.remove('flipped'));
+                    flippedCards = [];
+                }, 1000);
+            }
+        }
+
+        function updateScoreboard() {
+            document.getElementById('moveCount').textContent = moveCount;
+            document.getElementById('matchedCount').textContent = matchedCards;
+        }
+
+        function updateFeedback(message) {
+            const feedbackElement = document.getElementById('feedback');
+            feedbackElement.textContent = message;
+        }
+
+        function endGame(isWon) {
+            let rewardMessage = '';
+            if (isWon) {
+                rewardMessage = `Congratulations! You matched all pairs in ${moveCount} moves!`;
+                rewardMessage += ` You win a gold star! 🌟`;
+            } else {
+                rewardMessage = 'Game Over! Better luck next time.';
+            }
+            document.getElementById('rewards').textContent = rewardMessage;
+
+            // Reset game state
+            setTimeout(() => {
+                matchedCards = 0;
+                moveCount = 0;
+                updateScoreboard();
+                document.getElementById('feedback').textContent = '';
+                document.getElementById('rewards').textContent = '';
+                shuffledCards = [...cards, ...cards].sort(() => Math.random() - 0.5);
+                document.getElementById('board').innerHTML = '';
+                createBoard();
+            }, 3000); // Reset after 3 seconds
+        }
+
+        createBoard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Depresso</title>
+  <link rel="stylesheet" href="/static/css/depresso.css">
+</head>
+<body>
+  <div class="headi">
+    Depresso<br>
+    <div class="subtxt"> WE CARE FOR YOU
+    </div>  </div>
+      
+
+    <button id="theme-switch">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
+  </button>
+
+  <div class="menu-icon" id="menuIcon">
+    <div class="menu-container">
+        <div class="hamburger" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="menu">
+          <div class="menu-content"> 
+          <nav class="nave"> 
+            <ul class="navul">
+              <li><a href="/home" class="nav-ite active">Home</a></li>
+              <li><a href="/about" class="nav-ite">About</a></li>
+              <li><a href="/abc" class="nav-ite">Gear Up</a></li>
+              <li><a href="https://www.instagram.com/alvy_shajan/" class="nav-ite">Socials</a></li>
+              <li><a href="/" class="nav-ite" > Logout</a></li>
+            </ul>
+                </nav>
+            
+              <a href="/gameinterface">
+                <p class="coming-soon">Have Some Fun...</p>
+            </a>
+                <p class="message">Stay tuned for more updates!</p>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+
+  &ensp;&ensp;&ensp;
+    <main class="main-content">
+      <div > <nav class="navbar"> 
+        <ul class="nav-links">
+          <li><a href="/home" class="nav-item">Home</a></li>
+              <li><a href="/about" class="nav-item">About</a></li>
+              <li><a href="/abc" class="nav-item">Gear Up</a></li>
+              <li><a href="https://www.instagram.com/alvy_shajan/" class="nav-item">Socials</a></li>
+              <li><a href="/" class="nav-item" > Logout</a></li>
+        </ul>
+            </nav> </div>
+      
+      
+  
+      <div class="button-container">
+        <button id="prev-btn" class="arrow left">&#8249;</button>
+        <button id="next-btn" class="arrow right">&#8250;</button>
+    </div>
+  <div class="container">
+    <form id="predictForm" action="/predict" method="POST">
+      <div id="inputFields">
+      <div class="video-grid">
+        <div class="video-item">
+          <img src="/static/images/age.webp"  class="image-item"  alt="Self-Identity"> 
+        <div class="overlay-content">
+        <div class="qst" id="one"style="font-size: 38px;"><br>Age</div>&ensp;
+        <div class="yep">
+          <input id="numb" name="Age" type="number" required>
+      
+          </div>
+      </div>
+    </div>
+        <div class="video-item">
+          <img src="/static/images/married.webp"  class="image-item" alt="Self-Identity">
+          <div class="overlay-content">
+          <div class="qst" id="two" style="font-size: 38px;"><br>Marital Status</div>&ensp;
+          <div class="yep">
+            <button type="button" id="ma" onclick="selectOption('Marital Status', 0, this)"><b>Married</b></button>&ensp;
+            <button type="button" id="uma" onclick="selectOption('Marital Status', 1, this)"><b>Single</b></button>
+            <button type="button" id="divo" onclick="selectOption('Marital Status', 2, this)"><b>Divorced</b></button>
+            <button type="button" id="wid" onclick="selectOption('Marital Status', 3, this)"><b>Widowed</b></button>
+            <input type="hidden" id="Marital Status" name="Marital Status" required>
+            </div>
+        </div>
+      </div>
+        <div class="video-item">
+          <img src="/static/images/education.webp" class="image-item" alt="Self-Identity">
+          <div class="overlay-content">
+          <div class="qst" id="three" style="font-size: 38px;"><br>Education Level</div>&ensp;
+          <div class="yep">
+            <button type="button" id="bd" onclick="selectOption('Education Level', 2, this)"><b>Bachelors</b></button>
+            <button type="button" id="ad" onclick="selectOption('Education Level', 1, this)"><b>Associate</b></button>
+            <button type="button" id="hs" onclick="selectOption('Education Level', 0, this)"><b>School</b></button>
+            <button type="button" id="md" onclick="selectOption('Education Level', 3, this)"><b>Masters</b></button>
+            <button type="button" id="pd" onclick="selectOption('Education Level', 4, this)"><b>PhD</b></button>
+            <input type="hidden" id="Education Level" name="Education Level" required>
+            </div>
+        </div>
+      </div>
+        <div class="video-item">
+          
+          <img src="/static/images/child.webp" class="image-item" alt="Self-Identity">
+          <div class="overlay-content">
+          <div class="qst" id="four" style="font-size: 38px;"><br>Number of Children</div>&ensp;
+          <div class="yep">
+            <input id="Children" name="Number of Children" type="number" required>
+        
+            </div>
+        </div>
+      </div>
+        <div class="video-item">
+          <img src="/static/images/smoke.webp"  class="image-item" alt="Self-Identity">
+          <div class="overlay-content">
+          <div class="qst" id="five" style="font-size: 38px;"><br>Smoking Status</div>&ensp;
+          <div class="yep">
+            <button type="button" id="ns" onclick="selectOption('Smoking Status', 0, this)"><b>Non-smoker</b></button>&ensp;
+            <button type="button" id="sm" onclick="selectOption('Smoking Status', 2, this)"><b>Smoker</b></button>
+            <button type="button" id="fo" onclick="selectOption('Smoking Status', 1, this)"><b>Former</b></button>
+            <input type="hidden" id="Smoking Status" name="Smoking Status" required>
+            </div>
+        </div>
+      </div>
+        <div class="video-item">
+          <img src="/static/images/physical.webp"  class="image-item" alt="Self-Identity">
+          <div class="overlay-content">
+          <div class="qst"id="six" style="font-size: 38px;"><br>Physical Activity Level</div>&ensp;
+          <div class="yep">
+            <button type="button"id="act" onclick="selectOption('Physical Activity Level', 2, this)"><b>Active</b></button>&ensp;
+            <button type="button"id="sed" onclick="selectOption('Physical Activity Level', 0, this)"><b>Sedentary</b></button>
+            <button type="button"id="mod" onclick="selectOption('Physical Activity Level', 1, this)"><b>Moderate</b></button>
+            <input type="hidden" id="Physical Activity Level" name="Physical Activity Level" required>
+            </div>
+        </div>
+      </div>
+        <div class="video-item">
+          <img src="/static/images/employment.webp" class="image-item" alt="Self-Identity">
+          <div class="overlay-content">
+          <div class="qst" id="seven"style="font-size: 38px;"><br>Employment Status</div>&ensp;
+          <div class="yep">
+            <button type="button"id="emp"onclick="selectOption('Employment Status', 0, this)"><b>Employed</b></button>&ensp;
+            <button type="button"id="ump"onclick="selectOption('Employment Status', 1, this)"><b>Unemployed</b></button>
+            <input type="hidden" id="Employment Status" name="Employment Status" required>
+            </div>
+        </div>
+      </div>
+         <div class="video-item">
+          
+          <img src="/static/images/income.webp" class="image-item" alt="Self-Identity">
+          <div class="overlay-content">
+          <div class="qst"id="eight" style="font-size: 38px;"><br>Income</div>
+          <div class="yep">
+            <input id="income" name="Income" type="number" step="0.000001" required>
+        
+            </div>
+        </div>
+      </div>
+        <div class="video-item">
+          
+          <img src="/static/images/alcohol.webp" class="image-item" alt="Self-Identity">
+          <div class="overlay-content">
+          <div class="qst"id="nine" style="font-size: 38px;"><br>Alcohol Consumption</div>&ensp;
+          <div class="yep">
+            <button type="button"id="low"onclick="selectOption('Alcohol Consumption', 1, this)"><b>Non-Alcholic</b></button>&ensp;
+            <button type="button"id="med"onclick="selectOption('Alcohol Consumption', 0, this)"><b>Moderate</b></button>
+            <button type="button"id="high"onclick="selectOption('Alcohol Consumption', 2, this)"><b>Alcoholic</b></button>
+            <input type="hidden" id="Alcohol Consumption" name="Alcohol Consumption" required>
+            </div>
+        </div>
+      </div>
+
+      <div class="video-item">
+          
+        <img src="/static/images/dietry.webp"  class="image-item" alt="Self-Identity">
+        <div class="overlay-content">
+        <div class="qst" id="ten"style="font-size: 38px;"><br>Dietary Habits</div>&ensp;
+        <div class="yep">
+          <button type="button"id="hea"onclick="selectOption('Dietary Habits', 0, this)"><b>Healthy</b></button>&ensp;
+          <button type="button"id="mode"onclick="selectOption('Dietary Habits', 2, this)"><b>Moderate</b></button>
+          <button type="button"id="unh"onclick="selectOption('Dietary Habits', 1, this)"><b>Unhealthy</b></button>&ensp;
+          <input type="hidden" id="Dietary Habits" name="Dietary Habits" required>
+          </div>
+      </div>
+    </div>
+    <div class="video-item">
+          
+      <img src="/static/images/slee.webp" class="image-item" alt="Self-Identity">
+      <div class="overlay-content">
+      <div class="qst" id="eleven" style="font-size: 38px;"><br>Sleep Patterns</div>&ensp;
+      <div class="yep">
+        <button type="button"id="go"onclick="selectOption('Sleep Patterns', 2, this)"><b>Good</b></button>&ensp;
+        <button type="button"id="fai"onclick="selectOption('Sleep Patterns', 0, this)"><b>Fair</b></button>
+        <button type="button"id="po"onclick="selectOption('Sleep Patterns', 1, this)"><b>Poor</b></button>
+        <input type="hidden" id="Sleep Patterns" name="Sleep Patterns" required>
+        </div>
+    </div>
+  </div>
+  <div class="video-item">
+          
+    <img src="/static/images/mental.webp" class="image-item" alt="Self-Identity">
+    <div class="overlay-content">
+    <div class="qst" id="tweleve" style="font-size: 38px;"><br>History of Mental Illness</div>&ensp;
+    <div class="yep">
+      <button type="button"id="ye0"onclick="selectOption('History of Mental Illness', 1, this)"><b>YES</b></button>&ensp;
+      <button type="button"id="no0"onclick="selectOption('History of Mental Illness', 0, this)"><b>NO</b></button>
+      <input type="hidden" id="History of Mental Illness" name="History of Mental Illness" required>
+      </div>
+  </div>
+</div>
+
+<div class="video-item">
+  <img src="/static/images/substance.webp"  class="image-item" alt="Self-Identity">
+  <div class="overlay-content">
+  <div class="qst" id="thirteen"style="font-size: 38px;"><br>History of Substance Abuse</div>&ensp;
+  <div class="yep">
+    <button type="button"id="ye1"onclick="selectOption('History of Substance Abuse', 1, this)"><b>YES</b></button>&ensp;
+    <button type="button"id="no1"onclick="selectOption('History of Substance Abuse', 0, this)"><b>NO</b></button>
+    <input type="hidden" id="History of Substance Abuse" name="History of Substance Abuse" required>
+    </div>
+</div>
+</div>
+<div class="video-item">
+  <img src="/static/images/familyhis.webp"  class="image-item" alt="Self-Identity">
+  <div class="overlay-content">
+  <div class="qst" id="fourteen" style="font-size: 38px;"><br>Family History of Depression</div>&ensp;
+  <div class="yep">
+    <button type="button"id="ye2"onclick="selectOption('Family History of Depression', 1, this)"><b>YES</b></button>&ensp;
+    <button type="button"id="no2"onclick="selectOption('Family History of Depression', 0, this)"><b>NO</b></button>
+    <input type="hidden" id="Family History of Depression" name="Family History of Depression" required>
+  </div>
+ </div>
+</div>
+    <div class="video-item">
+    <button type="submit" class="pred" id="pr" ><b>Predict</b></button>
+    
+   </div> 
+  </div>
+ </div>
+</div>
+
+</form>
+  </main>
+  <script src="/static/js/depresso.js"></script>
+  <script src="/static/js/darkmode.js"></script>
+</body>
+</html>

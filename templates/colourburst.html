@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Burst</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background: black;
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4em;
+            margin-top: 20px;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        #score, #timer {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        #gameOver {
+            font-size: 2.5em;
+            display: none;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        #startGame {
+            background-color: #32CD32;
+            padding: 15px 25px;
+            font-size: 2em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            margin-top: 20px;
+        }
+
+        #startGame:hover {
+            background-color: #28A745;
+            transform: scale(1.05);
+        }
+
+        .button-container {
+            display: flex;
+            margin-top: 50px;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 80%;
+        }
+
+        .color-button {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .button1 { background-color: #FF6347; }
+        .button2 { background-color: #3CB371; }
+        .button3 { background-color: #1E90FF; }
+        .button4 { background-color: #FFD700; }
+
+        .button-container .color-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+        }
+
+        .button-container .color-button:active {
+            transform: scale(0.95);
+        }
+
+        #score {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+        }
+
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Media Queries for smaller screens */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            #score, #timer {
+                font-size: 1.5em;
+            }
+
+            .button-container {
+                width: 90%;
+                gap: 20px;
+            }
+
+            .color-button {
+                width: 80px;
+                height: 80px;
+            }
+
+            #startGame {
+                padding: 10px 20px;
+                font-size: 1.5em;
+            }
+
+            #gameOver {
+                font-size: 2em;
+            }
+        }
+
+        /* Ensure buttons are touch-friendly */
+        button, .color-button {
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Color Burst</h1>
+    <div id="score">Score: 0</div>
+    <div id="timer">Time: 30</div>
+    <div class="button-container">
+        <div class="color-button button1" id="button1"></div>
+        <div class="color-button button2" id="button2"></div>
+        <div class="color-button button3" id="button3"></div>
+        <div class="color-button button4" id="button4"></div>
+    </div>
+
+    <div id="gameOver">Game Over! Final Score: <span id="finalScore"></span></div>
+    <button id="startGame">Start Game</button>
+
+    <script>
+        let score = 0;
+        let timeRemaining = 30;
+        let gameInterval;
+        let colorChangeInterval;
+        let targetColor;
+        let buttonColors = ['button1', 'button2', 'button3', 'button4'];
+        let gameStarted = false;
+        let isPowerupActive = false;
+
+        // Get HTML elements
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+        const gameOverDisplay = document.getElementById('gameOver');
+        const finalScoreDisplay = document.getElementById('finalScore');
+        const startButton = document.getElementById('startGame');
+        const buttons = document.querySelectorAll('.color-button');
+
+        // Sound effects
+        const correctSound = new Audio('static/Sounds/snap-274158.mp3');  // Correct click sound
+        const wrongSound = new Audio('https://www.soundjay.com/button/beep-08b.wav');  // Wrong click sound
+        const gameOverSound = new Audio('https://www.soundjay.com/button/beep-09.wav'); // Game Over sound
+
+        // Power-ups sound
+        const powerUpSound = new Audio('static/Sounds/beep-01a.wav'); // Power-up sound
+        const powerDownSound = new Audio('https://www.soundjay.com/button/button-04.wav'); // Power-down sound
+
+        // Start the game when button is clicked
+        startButton.addEventListener('click', startGame);
+
+        function startGame() {
+            score = 0;
+            timeRemaining = 30;
+            gameStarted = true;
+            isPowerupActive = false;
+            scoreDisplay.textContent = `Score: ${score}`;
+            timerDisplay.textContent = `Time: ${timeRemaining}`;
+            gameOverDisplay.style.display = 'none';
+            gameOverSound.pause();
+            gameOverSound.currentTime = 0;
+
+            startButton.style.display = 'none';
+
+            gameInterval = setInterval(updateTimer, 1000);  // Update the timer every second
+            colorChangeInterval = setInterval(changeColor, 1000); // Change color every 1 second
+        }
+
+        // Timer function
+        function updateTimer() {
+            if (timeRemaining <= 0) {
+                gameOver();
+                clearInterval(gameInterval);
+                clearInterval(colorChangeInterval);
+            } else {
+                timeRemaining--;
+                timerDisplay.textContent = `Time: ${timeRemaining}`;
+            }
+        }
+
+        // Change the target color randomly
+        function changeColor() {
+            const randomIndex = Math.floor(Math.random() * buttonColors.length);
+            targetColor = buttonColors[randomIndex];
+            highlightTarget(targetColor);
+        }
+
+        // Highlight the target button
+        function highlightTarget(color) {
+            buttons.forEach(button => {
+                button.style.opacity = button.id === color ? 1 : 0.4;
+            });
+        }
+
+        // Handle button click events
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (!gameStarted) return;
+
+                if (button.id === targetColor) {
+                    score++;
+                    correctSound.play();
+                    if (Math.random() < 0.1 && !isPowerupActive) {  // 10% chance to activate power-up
+                        activatePowerUp();
+                    }
+                } else {
+                    score--;
+                    wrongSound.play();
+                }
+
+                scoreDisplay.textContent = `Score: ${score}`;
+            });
+        });
+
+        // Activate power-up
+        function activatePowerUp() {
+            isPowerupActive = true;
+            powerUpSound.play();
+            setTimeout(() => {
+                powerDownSound.play();
+                isPowerupActive = false;
+            }, 5000);  // Power-up lasts for 5 seconds
+        }
+
+        // End the game
+        function gameOver() {
+            gameOverSound.play();
+            gameStarted = false;
+            gameOverDisplay.style.display = 'block';
+            finalScoreDisplay.textContent = score;
+            startButton.style.display = 'inline-block';
+            startButton.textContent = 'Play Again';
+        }
+    </script>
+
+</body>
+</html>
